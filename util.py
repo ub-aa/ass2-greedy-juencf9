@@ -1,27 +1,27 @@
 import matplotlib.pyplot as plt
-import networkx as nx
 import csv
 import math
 import matplotlib.pyplot as plt
+import networkx as nx
 
 def get_subway_graph(csv_dir, Klass):
     G = Klass()
     # "line","name","colour","stripe"
     lines = {}
-    with open(csv_dir+'/lines.csv', 'rb') as csvfile:
+    with open(csv_dir+'/lines.csv', 'r') as csvfile:
         creader = csv.reader(csvfile)
         next(creader, None)
         for row in creader:
             lines[int(row[0])] = {"name": row[1], "color": row[2], "stripe": row[3], "line":int(row[0])}
 
-    with open(csv_dir+'/connections.csv', 'rb') as csvfile:
+    with open(csv_dir+'/connections.csv', 'r') as csvfile:
         creader = csv.reader(csvfile)
         next(creader, None)
 
         for row in creader:
             G.add_edge(int(row[0]), int(row[1]), attr_dict=lines[int(row[2])])
 
-    with open(csv_dir+'/stations.csv', 'rb') as csvfile:
+    with open(csv_dir+'/stations.csv', 'r') as csvfile:
         creader = csv.reader(csvfile)
         next(creader, None)
         for row in creader:
